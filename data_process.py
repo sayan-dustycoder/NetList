@@ -66,7 +66,6 @@ def dump_final_data_to_file(final_data, filename):
     print("final_data written to ", final_filename)
     
 
-
 # In[5]:
 
 
@@ -104,17 +103,20 @@ while True:
     if option == 0:
         break
 
-    fileName = input("Enter the name of the NetList file to convert")
-    destinationFile = input("Enter the name of the csv file")
+    fileName1 = input("Enter the name of the first NetList file to check")
+    fileName2 = input("Enter the name of the second NetList file to check")
+    destinationFile = input("Enter the name of the csv file to store the converted data into")
+    filename_list = [fileName1, fileName2]
 
-    position = fileName.find('.')
-    netlist_format = fileName[position+1:]
+    for fileName in filename_list:
+        position = fileName.find('.')
+        netlist_format = fileName[position+1:]
 
-    if netlist_format == 'txt':
-        process_data(fileName, destinationFile)
-        if '"' in df.column_two[0]: 
-            df = remove_quotations(destinationFile)
-            df.to_csv(destinationFile)
+        if netlist_format == 'txt':
+            process_data(fileName, destinationFile)
+            if '"' in df.column_two[0]: 
+                df = remove_quotations(destinationFile)
+                df.to_csv(destinationFile)
 
 # In[7]:
 
