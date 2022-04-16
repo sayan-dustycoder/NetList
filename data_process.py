@@ -105,18 +105,20 @@ while True:
 
     fileName1 = input("Enter the name of the first NetList file to check")
     fileName2 = input("Enter the name of the second NetList file to check")
-    destinationFile = input("Enter the name of the csv file to store the converted data into")
+    destinationFile1 = input("Enter the name of the csv file to store the converted data into")
+    destinationFile2 = input("Enter the name of the csv file to store the converted data into")
     filename_list = [fileName1, fileName2]
-
-    for fileName in filename_list:
+    for index, fileName in enumerate(filename_list):
+        file_name = "destinationFile"+str(index+1)
         position = fileName.find('.')
         netlist_format = fileName[position+1:]
 
         if netlist_format == 'txt':
-            process_data(fileName, destinationFile)
+            process_data(fileName, file_name)
+            df = pd.read_csv(file_name)
             if '"' in df.column_two[0]: 
-                df = remove_quotations(destinationFile)
-                df.to_csv(destinationFile)
+                df = remove_quotations(file_name)
+                df.to_csv(file_name)
 
 # In[7]:
 
