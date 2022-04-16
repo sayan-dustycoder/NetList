@@ -56,7 +56,7 @@ def get_mappings(focused_data):
 def dump_final_data_to_file(final_data, filename):
     final_filename = "processed_data/" + filename
     
-    with open(final_filename, mode='a+') as csv_file:
+    with open(final_filename, mode='w+') as csv_file:
         fieldnames = ['column_one', 'column_two']
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
@@ -103,11 +103,13 @@ while True:
     if option == 0:
         break
 
-    fileName1 = input("Enter the name of the first NetList file to check")
-    fileName2 = input("Enter the name of the second NetList file to check")
-    destinationFile1 = input("Enter the name of the csv file to store the converted data into")
-    destinationFile2 = input("Enter the name of the csv file to store the converted data into")
+    fileName1 = input("Enter the name of the first NetList file to check\n")
+    fileName2 = input("Enter the name of the second NetList file to check\n")
+    destinationFile1 = input("Enter the name of the csv file to store the converted data into: ")
+    destinationFile2 = input("Enter the name of the csv file to store the converted data into: ")
+
     filename_list = [fileName1, fileName2]
+    
     for index, fileName in enumerate(filename_list):
         file_name = "destinationFile"+str(index+1)
         position = fileName.find('.')
@@ -116,7 +118,7 @@ while True:
         if netlist_format == 'txt':
             process_data(fileName, file_name)
             df = pd.read_csv(file_name)
-            if '"' in df.column_two[0]: 
+            if '"' in df.column_two[0]:
                 df = remove_quotations(file_name)
                 df.to_csv(file_name)
 
