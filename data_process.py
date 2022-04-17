@@ -49,14 +49,10 @@ def get_mappings(focused_data):
     return final_data
         
 
-
-# In[4]:
-
-
 def dump_final_data_to_file(final_data, filename):
     final_filename = "processed_data/" + filename
     
-    with open(final_filename, mode='w+') as csv_file:
+    with open(final_filename, mode='w') as csv_file:
         fieldnames = ['column_one', 'column_two']
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
@@ -73,7 +69,7 @@ def process_data(filename, output_csv_filename):
     # Load the file to process
     original_data = list()
     delim = "  "
-    with open(filename) as file:     
+    with open(filename, "r") as file:
         for line in file.readlines():
             temp_list = line.split()
             if temp_list != []:
